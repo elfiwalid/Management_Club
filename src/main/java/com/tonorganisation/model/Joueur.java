@@ -1,5 +1,8 @@
 package com.tonorganisation.model;
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import lombok.*;
@@ -33,6 +36,7 @@ public class Joueur {
         joinColumns = @JoinColumn(name = "id_joueur"), 
         inverseJoinColumns = @JoinColumn(name = "id_entrainement") 
     )
+    @JsonIgnore
     private List<Entrainement> entrainements; 
 
     @ManyToMany
@@ -41,21 +45,26 @@ public class Joueur {
         joinColumns = @JoinColumn(name = "id_joueur"),
         inverseJoinColumns = @JoinColumn(name = "id_match")
     )
+    @JsonIgnore
     private List<Match> matchs;
 
     @ManyToOne
     @JoinColumn(name = "id_category", nullable = false)
+    @JsonIgnore
     private Category category;
 
     @ManyToOne
     @JoinColumn(name = "id_classement", nullable = true) 
+    @JsonIgnore
     private Classement classement;
 
     @OneToOne(mappedBy = "joueur") 
+    @JsonIgnore
     private Statistique statistique;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
 

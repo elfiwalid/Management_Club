@@ -1,6 +1,7 @@
 package com.tonorganisation.service;
 
 import com.tonorganisation.model.Entrainement;
+import com.tonorganisation.model.Joueur;
 import com.tonorganisation.repository.EntrainementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,4 +51,10 @@ public class EntrainementService {
     public List<Entrainement> getEntrainementsByDateRange(LocalDate startDate, LocalDate endDate) {
         return entrainementRepository.findByDateEntrainementBetween(startDate, endDate);
     }
+
+
+    public List<Entrainement> findEntrainementByJoueur(Joueur joueur) {
+    return entrainementRepository.findByJoueursContains(joueur);
+    }
+
 }

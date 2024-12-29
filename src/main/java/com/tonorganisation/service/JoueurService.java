@@ -2,7 +2,7 @@ package com.tonorganisation.service;
 import com.tonorganisation.repository.*;
 import com.tonorganisation.model.*;
 import java.time.LocalDate;
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,10 @@ public class JoueurService {
 
     @Autowired
     private UserService userService;
+
+    public List<Joueur> getAllJoueurs() {
+        return joueurRepository.findAll();
+    }
 
     public Joueur createJoueur(String nom, LocalDate dateNaissance, String email, String password, Category category, Classement classement) {
         // Create user entry

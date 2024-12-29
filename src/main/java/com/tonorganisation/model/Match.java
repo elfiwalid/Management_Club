@@ -18,12 +18,19 @@ public class Match {
     private int idMatch;
     @Column(name = "date_matche", nullable = false)
     private LocalDate dateMatche;
+
+    @Column(name = "heure_match", nullable = false)
+    private LocalTime heureMatch;
+    @Column(name = "lieu", nullable = false)
+    private String lieu;
+
     @Column(name = "id_joueur1", length = 255, nullable = false)
     private int idJoueur1;
     @Column(name = "id_joueur2", length = 255, nullable = false)
     private int idJoueur2;
-    @Column(name = "resultat", length = 255, nullable = false)
+    @Column(name = "resultat", length = 255, nullable = true)
     private String resultat;
+
 
     @ManyToOne  
     @JoinColumn(name = "id_administrateur", nullable = false)  

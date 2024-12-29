@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Data 
 @NoArgsConstructor 
@@ -26,12 +28,15 @@ public class Administrateur {
 
 
     @OneToMany(mappedBy = "administrateur")  
+    @JsonIgnore
     private List<Match> matchs;
 
     @OneToMany(mappedBy = "administrateur")  
+    @JsonIgnore
     private List<Entrainement> entrainements;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 }

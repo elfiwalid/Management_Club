@@ -1,6 +1,8 @@
 package com.tonorganisation.repository;
 
 import com.tonorganisation.model.Entrainement;
+import com.tonorganisation.model.Joueur;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +19,6 @@ public interface EntrainementRepository extends JpaRepository<Entrainement, Inte
     List<Entrainement> findByAdministrateurIdAdministrateur(int idAdministrateur);
 
     List<Entrainement> findByDateEntrainementBetween(LocalDate startDate, LocalDate endDate);
+
+    List<Entrainement> findByJoueursContains(Joueur joueur);
 }

@@ -2,6 +2,8 @@ package com.tonorganisation.service;
 import com.tonorganisation.repository.*;
 import com.tonorganisation.model.*;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ public class AdministrateurService {
 
     @Autowired
     private UserService userService;
+
 
     public Administrateur createAdministrateur(String nom, String email, String password) {
         // Create user entry

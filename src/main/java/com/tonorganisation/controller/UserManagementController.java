@@ -63,7 +63,11 @@ public class UserManagementController {
 
     @GetMapping("/joueurs")
     public ResponseEntity<List<Joueur>> getAllJoueurs() {
-        return ResponseEntity.ok(joueurRepository.findAll());
+        List<Joueur> joueurs = joueurRepository.findAll();
+        if (joueurs.isEmpty()) {
+            return ResponseEntity.noContent().build(); // Retourne 204 si aucun joueur
+        }
+        return ResponseEntity.ok(joueurs);
     }
 
     @PutMapping("/joueurs/{id}")

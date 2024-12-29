@@ -9,6 +9,7 @@
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/repository/UserRepository.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Category.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Classement.java
+/home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Matches.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/repository/ClassementRepository.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/repository/JoueurRepository.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/repository/MatchRepository.java
@@ -34,5 +35,6 @@
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/controller/UserManagementController.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/service/passwordEncoder.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/controller/HelloController.java
+/home/walid1234/gestion_club/src/main/java/com/tonorganisation/controller/MatchController.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/service/MatchService.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/service/StatistiqueService.java
