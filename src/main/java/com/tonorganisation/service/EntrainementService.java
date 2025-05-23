@@ -53,8 +53,8 @@ public class EntrainementService {
     }
 
 
-    public List<Entrainement> findEntrainementByJoueur(Joueur joueur) {
-    return entrainementRepository.findByJoueursContains(joueur);
+    public List<Entrainement> findEntrainementByJoueur(int  idJoueur) {
+    return entrainementRepository.findEntrainementsByJoueurId(idJoueur);
     }
 
 }

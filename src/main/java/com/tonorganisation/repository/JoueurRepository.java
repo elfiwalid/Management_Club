@@ -8,5 +8,6 @@ import java.util.*;
 
 @Repository
 public interface JoueurRepository extends JpaRepository<Joueur, Integer> {
+    Optional<Joueur> findByUserId(int userId);
 }
 

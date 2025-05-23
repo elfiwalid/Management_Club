@@ -1,7 +1,8 @@
 package com.tonorganisation.controller;
 
 import com.tonorganisation.model.*;
-import com.tonorganisation.service.MatchService;
+import com.tonorganisation.repository.*;
+import com.tonorganisation.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +17,17 @@ import java.util.List;
 public class MatchController {
 
     private final MatchService matchService;
+    private  MatchRepository matchRepository;
+    private ClassementService classementService;
 
     @Autowired
-    public MatchController(MatchService matchService) {
+    public MatchController(MatchService matchService, ClassementService classementService) {
         this.matchService = matchService;
+        this.classementService = classementService;
+        
+        if (this.classementService == null) {
+        System.err.println("ClassementService is null in MatchController!");
+    }
     }
 
     // Créer un nouveau match
@@ -36,17 +44,6 @@ public class MatchController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la création du match.");
         }
     }
-
-    @GetMapping("/joueur/{idJoueur}")
-    public ResponseEntity<List<Matches>> getMatchesByJoueur(@PathVariable int idJoueur) {
-        List<Matches> matches = matchService.getMatchesByJoueur(idJoueur);
-        if (matches.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-            return ResponseEntity.ok(matches);
-    }
-
-    // Récupérer tous les matchs
     @GetMapping
     public ResponseEntity<List<Matches>> getAllMatches() {
         try {
@@ -60,47 +57,19 @@ public class MatchController {
 
     // Récupérer un match par ID
     @GetMapping("/{id}")
-    public ResponseEntity<?> getMatchById(@PathVariable int id) {
-        try {
-            Matches match = matchService.getMatchById(id);
-            if (match != null) {
-                return ResponseEntity.ok(match);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Match non trouvé.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la récupération du match.");
-        }
+public ResponseEntity<?> getMatchById(@PathVariable("id") int id) {
+    try {
+        Matches match = matchService.getMatchById(id);
+        return ResponseEntity.ok(match);
+    } catch (RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la récupération du match.");
     }
+}
 
-    // Récupérer les matchs par joueur 1
-    @GetMapping("/joueur1/{id}")
-    public ResponseEntity<?> getMatchesByJoueur1(@PathVariable int id) {
-        try {
-            Joueur joueur1 = new Joueur();
-            joueur1.setIdJoueur(id);
-            List<Matches> matches = matchService.getMatchesByJoueur1(joueur1);
-            return ResponseEntity.ok(matches);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la récupération des matchs.");
-        }
-    }
 
-    // Récupérer les matchs par joueur 2
-    @GetMapping("/joueur2/{id}")
-    public ResponseEntity<?> getMatchesByJoueur2(@PathVariable int id) {
-        try {
-            Joueur joueur2 = new Joueur();
-            joueur2.setIdJoueur(id);
-            List<Matches> matches = matchService.getMatchesByJoueur2(joueur2);
-            return ResponseEntity.ok(matches);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la récupération des matchs.");
-        }
-    }
 
     // Récupérer les matchs par date
     @GetMapping("/date/{date}")
@@ -114,4 +83,47 @@ public class MatchController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Format de date invalide.");
         }
     }
+
+    @PutMapping("/{id}")
+public ResponseEntity<?> updateMatchResult(
+        @PathVariable("id") int id,
+        @RequestBody Matches updatedMatch
+) {
+    try {
+        Matches match = matchService.updateMatchResult(
+                id,
+                updatedMatch.getResultatJoueur1(),
+                updatedMatch.getResultatJoueur2()
+        );
+        // Mettre à jour les statistiques et le classement
+        classementService.mettreAJourStatistiquesEtClassement(match);
+
+        return ResponseEntity.ok(match);
+    } catch (RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la mise à jour du match.");
+    }
+}
+
+
+    @GetMapping("/joueur/{idJoueur}")
+public ResponseEntity<List<Matches>> getMatchesByJoueur(@PathVariable("idJoueur") int idJoueur) {
+    try {
+        System.out.println("Recherche des matchs pour le joueur avec ID : " + idJoueur);
+        List<Matches> matches = matchService.getMatchesByJoueur(idJoueur);
+        System.out.println("Nombre de matchs trouvés : " + matches.size());
+
+        if (matches.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(matches);
+    } catch (Exception e) {
+        e.printStackTrace(); // Log de l'exception pour diagnostic
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+}
+
+
 }

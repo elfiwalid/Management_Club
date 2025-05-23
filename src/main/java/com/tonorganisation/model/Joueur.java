@@ -68,5 +68,8 @@ public class Joueur {
     private User user;
 
 
+    @ManyToMany
+    private List<Matches> matches;
+
 
 }

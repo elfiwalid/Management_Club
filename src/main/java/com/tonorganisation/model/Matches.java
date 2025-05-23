@@ -46,6 +46,13 @@ public class Matches {
     @JsonIgnore
     private Entraineur entraineur;
 
+
+    @Column(name = "resultat_joueur1", nullable = true, length = 10)
+    private String resultatJoueur1;
+
+    @Column(name = "resultat_joueur2", nullable = true, length = 10)
+    private String resultatJoueur2;
+
     // Méthodes pour les noms des joueurs
     public String getJoueur1Nom() {
         return joueur1 != null ? joueur1.getNom() : null;

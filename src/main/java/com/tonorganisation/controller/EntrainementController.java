@@ -20,13 +20,27 @@ public class EntrainementController {
 
     // Créer un nouvel entraînement
     @PostMapping
-    public ResponseEntity<Entrainement> createEntrainement(@RequestBody Entrainement entrainement) {
+    public ResponseEntity<?> createEntrainement(@RequestBody Entrainement entrainement) {
         try {
+            // Validation des champs
+            if (entrainement.getEntraineur() == null || entrainement.getEntraineur().getIdEntraineur() == 0) {
+                return ResponseEntity.badRequest().body("Un entraîneur doit être spécifié.");
+            }
+
+            if (entrainement.getAdministrateur() == null || entrainement.getAdministrateur().getIdAdministrateur() == 0) {
+                return ResponseEntity.badRequest().body("Un administrateur doit être spécifié.");
+            }
+
+            if (entrainement.getJoueurs() == null || entrainement.getJoueurs().isEmpty()) {
+                return ResponseEntity.badRequest().body("Au moins un joueur doit être ajouté.");
+            }
+
+            // Sauvegarde
             Entrainement savedEntrainement = entrainementRepository.save(entrainement);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedEntrainement);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Une erreur s'est produite.");
         }
     }
 
@@ -42,8 +56,7 @@ public class EntrainementController {
         }
     }
 
-    // Récupérer un entraînement par ID
-    // Récupérer un entraînement par ID
+
 @GetMapping("/{id}")
 public ResponseEntity<?> getEntrainementById(@PathVariable int id) {
     Optional<Entrainement> entrainement = entrainementRepository.findById(id);
@@ -54,19 +67,25 @@ public ResponseEntity<?> getEntrainementById(@PathVariable int id) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entraînement non trouvé");
     }
 }
+
+
+
 @GetMapping("/joueur/{idJoueur}")
-public ResponseEntity<List<Entrainement>> getEntrainementsByJoueur(@PathVariable int idJoueur) {
-    Joueur joueur = new Joueur();
-    joueur.setIdJoueur(idJoueur); // Créer un objet Joueur avec l'ID fourni
+public ResponseEntity<List<Entrainement>> getEntrainementsByJoueur(@PathVariable("idJoueur") int idJoueur) {
+    try {
+        List<Entrainement> entrainements = entrainementRepository.findEntrainementsByJoueurId(idJoueur);
 
-    List<Entrainement> entrainements = entrainementRepository.findByJoueursContains(joueur);
+        if (entrainements.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
 
-    System.out.println("Entraînements trouvés : " + entrainements.size()); // Debug
-
-    return entrainements.isEmpty() 
-        ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null)
-        : ResponseEntity.ok(entrainements);
+        return ResponseEntity.ok(entrainements);
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
 }
+
 
 
     // Récupérer les entraînements par date

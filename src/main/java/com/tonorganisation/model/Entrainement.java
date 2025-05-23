@@ -3,7 +3,6 @@ import jakarta.persistence.*;
 import java.time.*;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
@@ -27,7 +26,7 @@ public class Entrainement {
         joinColumns = @JoinColumn(name = "id_entrainement"),
         inverseJoinColumns = @JoinColumn(name = "id_joueur")
     )  
-    @JsonIgnore
+    
     private List<Joueur> joueurs;
 
     @ManyToOne  

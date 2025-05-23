@@ -8,16 +8,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    @SuppressWarnings("deprecation")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable()) // Désactive CSRF si non nécessaire
-            .cors(cors -> {}) // Active les règles CORS définies ailleurs
-            .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/api/**").permitAll() // Autorise toutes les requêtes sous /api/users/
-                .anyRequest().authenticated() // Toutes les autres routes nécessitent une authentification
-            );
-
+        http.csrf(csrf -> csrf.disable()) // Désactive la protection CSRF
+                .authorizeRequests(requests -> requests
+                        .anyRequest().permitAll()); // Permet toutes les requêtes
         return http.build();
     }
 }
+
 

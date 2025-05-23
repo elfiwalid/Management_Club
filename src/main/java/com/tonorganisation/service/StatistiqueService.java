@@ -38,14 +38,4 @@ public class StatistiqueService {
         }
     }
 
-    public List<Statistique> findByJoueurId(int idJoueur) {
-        return statistiqueRepository.findByJoueur_IdJoueur(idJoueur);
-    }
-
-    public List<Statistique> findByPointsTotauxGreaterThanEqual(int points) {
-        return statistiqueRepository.findByPointsTotauxGreaterThanEqual(points);
-    }
-    public List<Statistique> findByNbrMatchsGagnesGreaterThanEqual(int nbrMatchsGagnes) {
-        return statistiqueRepository.findByNbrMatchsGagnesGreaterThanEqual(nbrMatchsGagnes);
-    }
 }

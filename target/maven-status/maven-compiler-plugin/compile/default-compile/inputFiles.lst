@@ -6,12 +6,14 @@
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/config/SecurityConfig.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/service/JoueurService.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Entraineur.java
+/home/walid1234/gestion_club/src/main/java/com/tonorganisation/controller/StatsController.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/repository/UserRepository.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Category.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Classement.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Matches.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/repository/ClassementRepository.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/repository/JoueurRepository.java
+/home/walid1234/gestion_club/src/main/java/com/tonorganisation/controller/ClassementController.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/repository/MatchRepository.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/service/EntraineurService.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Role.java
@@ -21,6 +23,7 @@
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/service/EntrainementService.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Entrainement.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Statistique.java
+/home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Resultat.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/repository/EntrainementRepository.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/service/CategoryService.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/model/Administrateur.java
@@ -29,7 +32,6 @@
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/dto/LoginRequest.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/repository/StatistiqueRepository.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/App.java
-/home/walid1234/gestion_club/src/main/java/com/tonorganisation/dto/LoginResponse.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/repository/AdministrateurRepository.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/service/AdministrateurService.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/controller/UserManagementController.java
@@ -37,4 +39,5 @@
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/controller/HelloController.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/controller/MatchController.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/service/MatchService.java
+/home/walid1234/gestion_club/src/main/java/com/tonorganisation/dto/AuthResponse.java
 /home/walid1234/gestion_club/src/main/java/com/tonorganisation/service/StatistiqueService.java
