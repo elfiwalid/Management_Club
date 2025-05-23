@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // Autoriser les requêtes CORS depuis l'origine 'http://localhost:3000' pour toutes les routes
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000") // L'URL de ton frontend React
+                .allowedOrigins("https://calm-moss-0bd2ee30f.6.azurestaticapps.net") // L'URL de ton frontend React
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Méthodes HTTP autorisées
                 .allowedHeaders("*") // Autoriser tous les en-têtes
                 .allowCredentials(true); // Autoriser l'envoi de cookies ou d'identifiants
