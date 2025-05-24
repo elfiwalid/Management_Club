@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:17
+    container_name: gestion_club_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: gestion_club
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: walid1234@
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    container_name: gestion_club_backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/gestion_club
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: walid1234@
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
